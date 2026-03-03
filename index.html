@@ -98,12 +98,44 @@ https://templatemo.com/tm-594-nexus-flow
     <div class="stats-container">
         <div class="stats-grid">
             <div class="stat-item">
-                <span class="stat-number" id="player-count">0/0</span>
-                <span class="stat-label">Players Online (pvpsl.xyz:19165)</span>
+                <span class="stat-number" id="player-count">Checking...</span>
+                <span class="stat-label">Server Online (pvpsl.xyz:19165)</span>
             </div>
         </div>
     </div>
 </section>
+
+<style>
+.stats-container {
+    width: 100%;
+    padding: 20px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    text-align: center;
+}
+
+.stat-item {
+    background: #111;
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.stat-number {
+    display: block;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.stat-label {
+    display: block;
+    font-size: 14px;
+    margin-top: 5px;
+    opacity: 0.8;
+}
+</style>
 
 <script>
 async function checkServer() {
@@ -112,25 +144,20 @@ async function checkServer() {
         const data = await response.json();
 
         if (data.online) {
-            document.getElementById("server-status").textContent = "Online";
-            document.getElementById("server-status").style.color = "lime";
-
-            document.getElementById("player-count").textContent = 
-                data.players.online + "/" + data.players.max;
+            document.getElementById("player-count").textContent =
+                data.players.online + " / " + data.players.max;
         } else {
-            document.getElementById("server-status").textContent = "Offline";
-            document.getElementById("server-status").style.color = "red";
-            document.getElementById("player-count").textContent = "0/0";
+            document.getElementById("player-count").textContent = "Server Offline";
         }
     } catch (error) {
-        document.getElementById("server-status").textContent = "Error";
-        document.getElementById("server-status").style.color = "orange";
+        document.getElementById("player-count").textContent = "Error";
     }
 }
 
 checkServer();
-setInterval(checkServer, 10000); // refresh setiap 10 saat
+setInterval(checkServer, 10000);
 </script>
+
 
 <!-- Features Section -->
 <section class="features fade-up" id="features">
